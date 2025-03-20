@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Notas de {{ alumno.nombre_completo }}</h3>
+                    <small class="text-muted">{{ alumno.curso }}</small>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="asignatura" class="form-label">Asignatura</label>
+                            <select class="form-select" id="asignatura" name="asignatura" required>
+                                {% for asignatura in asignaturas %}
+                                <option value="{{ asignatura }}">{{ asignatura }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="calificaciones" class="form-label">Calificaciones</label>
+                            <input type="text" class="form-control" id="calificaciones" name="calificaciones"
+                                   placeholder="Ej: 5.5, 6.0, 7.0" required>
+                            <small class="text-muted">Ingrese las notas separadas por comas</small>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                            <a href="{{ url_for('ver_curso', curso=alumno.curso) }}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

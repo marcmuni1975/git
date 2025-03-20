@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Cursos CEIA</h2>
+    <div class="row">
+        {% for curso in cursos %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ curso }}</h5>
+                    <p class="card-text">Lista de alumnos y calificaciones</p>
+                    <a href="{{ url_for('ver_curso', curso=curso) }}" class="btn btn-primary">
+                        <i class="fas fa-users"></i> Ver Alumnos
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

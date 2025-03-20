@@ -1,0 +1,196 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red31\green31\blue31;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c16078\c16078\c16078;\cssrgb\c100000\c100000\c100000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat2\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid101\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat3\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid201\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat4\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid301\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat5\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid401\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid501\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid502\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid6}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f0\fs26 \cf2 \cb3 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Primero, crea un archivo batch para ejecutar la aplicaci\'f3n (
+\fs24 run.bat
+\fs26 ):\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\cf2 \
+@echo off\
+cd /d "%~dp0"\
+call venv\\Scripts\\activate.bat\
+python app.py\
+pause\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Crea un archivo batch para la configuraci\'f3n inicial (
+\fs24 setup.bat
+\fs26 ):\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\cf2 \strokec2 \
+@echo off\
+cd /d "%~dp0"\
+\
+echo Configurando el sistema...\
+\
+REM Crear entorno virtual\
+python -m venv venv\
+\
+REM Activar entorno virtual\
+call venv\\Scripts\\activate.bat\
+\
+REM Actualizar pip\
+python -m pip install --upgrade pip\
+\
+REM Instalar dependencias\
+pip install Flask==3.0.2\
+pip install Flask-SQLAlchemy==3.1.1\
+pip install SQLAlchemy==2.0.28\
+pip install Werkzeug==3.0.1\
+pip install fpdf2\
+\
+REM Crear directorios necesarios\
+if not exist "static" mkdir static\
+if not exist "static\\pdfs" mkdir static\\pdfs\
+\
+REM Crear base de datos inicial\
+python create_db.py\
+\
+echo Instalaci\'f3n completada!\
+echo.\
+echo Ahora puede ejecutar run.bat para iniciar la aplicaci\'f3n\
+pause\
+\
+\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Modifica el archivo\'a0{\field{\*\fldinst{HYPERLINK "vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html"}}{\fldrslt app.py}}\'a0para Windows:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\cf2 \strokec2 \
+\
+# ...existing code...\
+\
+# Modificar la secci\'f3n if __name__ == '__main__':\
+if __name__ == '__main__':\
+    try:\
+        # Crear directorio para PDFs si no existe\
+        os.makedirs('static/pdfs', exist_ok=True)\
+        \
+        # Crear base de datos si no existe\
+        with app.app_context():\
+            db.create_all()\
+        \
+        # Abrir navegador autom\'e1ticamente\
+        Timer(1.5, lambda: webbrowser.open('http://127.0.0.1:5000')).start()\
+        \
+        # Iniciar aplicaci\'f3n\
+        app.run(debug=False)\
+    except Exception as e:\
+        print(f"Error: \{e\}")\
+        input("Presione Enter para cerrar...")\
+\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Crea un README en espa\'f1ol para Windows:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\cf2 \strokec2 \
+\
+# Sistema de Notas CEIA\
+\
+## Requisitos Previos\
+1. Instalar Python 3.11 desde [python.org](https://www.python.org/downloads/)\
+   - Durante la instalaci\'f3n, marcar la opci\'f3n "Add Python to PATH"\
+\
+## Instrucciones de Uso\
+\
+### Primera vez:\
+1. Hacer doble clic en `setup.bat`\
+2. Esperar a que termine la instalaci\'f3n\
+3. Cuando aparezca "Instalaci\'f3n completada!", presionar Enter\
+\
+### Uso diario:\
+1. Hacer doble clic en `run.bat`\
+2. Esperar a que se abra el navegador autom\'e1ticamente\
+3. La aplicaci\'f3n estar\'e1 disponible en: http://127.0.0.1:5000\
+\
+### Para cerrar:\
+1. Cerrar la ventana del navegador\
+2. En la ventana negra del programa, presionar cualquier tecla\
+\
+### Notas importantes:\
+- No eliminar ninguna carpeta del programa\
+- Los PDFs generados se guardan en la carpeta `static/pdfs`\
+- Agregar el logo de la instituci\'f3n como `static/logo.png`\
+\
+## Soluci\'f3n de problemas:\
+Si la aplicaci\'f3n no inicia:\
+1. Verificar que Python est\'e1 instalado correctamente\
+2. Ejecutar `setup.bat` nuevamente\
+3. Si el problema persiste, contactar al soporte t\'e9cnico\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	5	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Estructura del proyecto para Windows:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\cf2 \strokec2 \
+\
+appweb/\
+\uc0\u9500 \u9472 \u9472  README.md\
+\uc0\u9500 \u9472 \u9472  app.py\
+\uc0\u9500 \u9472 \u9472  create_db.py\
+\uc0\u9500 \u9472 \u9472  requirements.txt\
+\uc0\u9500 \u9472 \u9472  run.bat\
+\uc0\u9500 \u9472 \u9472  setup.bat\
+\uc0\u9500 \u9472 \u9472  static/\
+\uc0\u9474    \u9500 \u9472 \u9472  logo.png\
+\uc0\u9474    \u9492 \u9472 \u9472  pdfs/\
+\uc0\u9500 \u9472 \u9472  templates/\
+\uc0\u9474    \u9500 \u9472 \u9472  agregar_alumno.html\
+\uc0\u9474    \u9500 \u9472 \u9472  agregar_nota.html\
+\uc0\u9474    \u9500 \u9472 \u9472  base.html\
+\uc0\u9474    \u9500 \u9472 \u9472  curso.html\
+\uc0\u9474    \u9492 \u9472 \u9472  index.html\
+\uc0\u9492 \u9472 \u9472  venv/\
+\
+\
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 \strokec2 Para distribuir la aplicaci\'f3n:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Crear una carpeta comprimida (ZIP) con todos los archivos excepto:\cb1 \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
+\ls6\ilvl1\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 La carpeta\'a0{\field{\*\fldinst{HYPERLINK "vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html"}}{\fldrslt venv}}\cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Los archivos\'a0
+\fs24 .pyc
+\fs26 \cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 La carpeta\'a0{\field{\*\fldinst{HYPERLINK "vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html"}}{\fldrslt __pycache__}}\cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 La base de datos\'a0
+\fs24 notas.db
+\fs26 \cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Instrucciones para el usuario final:\cb1 \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
+\ls6\ilvl1\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Descargar e instalar Python 3.11 de python.org\cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Extraer la carpeta ZIP\cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Ejecutar\'a0
+\fs24 setup.bat
+\fs26 \'a0la primera vez\cb1 \
+\ls6\ilvl1\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Usar\'a0
+\fs24 run.bat
+\fs26 \'a0para iniciar la aplicaci\'f3n\cb1 \
+}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>{{ curso }}</h2>
+            <p class="text-muted mb-0">Lista de Alumnos</p>
+        </div>
+        <div class="btn-group">
+            <a href="{{ url_for('exportar_curso_pdf', curso=curso) }}" class="btn btn-success">
+                <i class="fas fa-file-pdf"></i> Exportar Lista
+            </a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <a href="{{ url_for('agregar_alumno', curso=curso) }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Agregar Alumno
+            </a>
+        </div>
+    </div>
+
+    {% if alumnos %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Alumno</th>
+                    {% for asignatura in asignaturas %}
+                    <th>{{ asignatura }}</th>
+                    {% endfor %}
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                <tr>
+                    <td>{{ alumno.nombre_completo }}</td>
+                    {% for asignatura in asignaturas %}
+                    <td>
+                        {% set notas = alumno.notas|selectattr('asignatura', 'equalto', asignatura)|list %}
+                        {% if notas %}
+                            <div class="notas-container">
+                                {{ notas[0].calificaciones }}
+                                <small class="d-block text-muted">
+                                    Promedio: {{ "%.1f"|format(alumno.obtener_promedio_asignatura(asignatura)) }}
+                                </small>
+                            </div>
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ url_for('agregar_nota', alumno_id=alumno.id) }}" 
+                               class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i> Notas
+                            </a>
+                            <a href="{{ url_for('certificado_alumno', alumno_id=alumno.id) }}" 
+                               class="btn btn-success btn-sm">
+                                <i class="fas fa-file-pdf"></i> Certificado
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No hay alumnos registrados en este curso.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
