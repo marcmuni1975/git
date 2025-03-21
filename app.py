@@ -62,8 +62,8 @@ class PDF(FPDF):
     def header(self):
         # Logo
         try:
-            if os.path.exists('static/logo.png'):
-                self.image('static/logo.png', 10, 8, 33)
+            if os.path.exists(os.path.join('static', 'logo.png')):
+                self.image(os.path.join('static', 'logo.png'), 10, 8, 33)
         except Exception as e:
             print(f"Error al cargar el logo: {e}")
         
@@ -200,31 +200,19 @@ def exportar_curso_pdf(curso):
             promedios = []
             
             for asignatura in ASIGNATURAS:
-                promedio = alumno.obtener_promedio_asignatura(asignatura)
-                promedios.append(promedio)
-                pdf.cell(col_width, 7, f'{promedio:.1f}', 1, 0, 'C')
+                notas = alumno.obtener_promedio_asignatura(asignatura)
+                pdf.cell(col_width, 7, f'{notas:.2f}', 1, 0, 'C')
+                promedios.append(notas)
             
             promedio_final = sum(promedios) / len(promedios) if promedios else 0
-            pdf.cell(col_width, 7, f'{promedio_final:.1f}', 1, 0, 'C')
+            pdf.cell(col_width, 7, f'{promedio_final:.2f}', 1, 0, 'C')
             pdf.ln()
         
-        # Fecha
-        pdf.ln(10)
-        fecha_actual = datetime.now().strftime('%d de %B de %Y').capitalize()
-        pdf.cell(0, 10, f'La Serena, {fecha_actual}', 0, 1, 'R')
-        
-        # Guardar PDF
-        os.makedirs('static/pdfs', exist_ok=True)
-        fecha = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f'notas_{curso.replace(" ", "_")}_{fecha}.pdf'
-        pdf_path = os.path.join('static', 'pdfs', filename)
-        pdf.output(pdf_path)
-        
-        return send_file(pdf_path, as_attachment=True, download_name=filename)
-    
+        output_path = os.path.join('static', f'informe_{curso}.pdf')
+        pdf.output(output_path, 'F')
+        return send_file(output_path, as_attachment=True)
     except Exception as e:
-        print(f"Error al generar PDF: {e}")
-        flash('Error al generar el PDF', 'error')
+        flash(f'Error al generar el PDF: {str(e)}', 'error')
         return redirect(url_for('ver_curso', curso=curso))
 
 @app.route('/certificado_alumno/<int:alumno_id>')
