@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Importar Alumnos - {{ curso.nombre }}</h2>
+        </div>
+        <div class="col text-end">
+            <a href="{{ url_for('administrar_alumnos', curso_id=curso.id) }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="archivo" class="form-label">Archivo de Lista (TXT)</label>
+                    <input type="file" 
+                           class="form-control" 
+                           id="archivo" 
+                           name="archivo" 
+                           accept=".txt"
+                           required>
+                    <div class="form-text">
+                        El archivo debe contener un nombre de alumno por línea.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-file-import"></i> Importar Lista
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

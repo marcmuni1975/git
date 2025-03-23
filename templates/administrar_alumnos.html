@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>{{ curso.nombre }} - Alumnos</h2>
+        </div>
+        <div class="col text-end">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Formulario para agregar alumno -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="card-title">Agregar Nuevo Alumno</h5>
+                    <form method="POST" action="{{ url_for('administrar_alumnos', curso_id=curso.id) }}" class="row g-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre del alumno" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="card-title">Importar Lista</h5>
+                    <form method="POST" action="{{ url_for('importar_alumnos', curso_id=curso.id) }}" enctype="multipart/form-data" class="row g-3">
+                        <div class="col-md-8">
+                            <input type="file" class="form-control" name="archivo" accept=".txt" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-file-import"></i> Importar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de alumnos -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alumno in alumnos %}
+                        <tr>
+                            <td>{{ alumno.numero_lista }}</td>
+                            <td>{{ alumno.nombre_completo }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ url_for('editar_notas', alumno_id=alumno.id) }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-edit"></i> Notas
+                                    </a>
+                                    <a href="{{ url_for('editar_alumno', alumno_id=alumno.id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-user-edit"></i> Editar
+                                    </a>
+                                    <a href="{{ url_for('certificado_alumno', alumno_id=alumno.id) }}" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-file-pdf"></i> Certificado
+                                    </a>
+                                    <a href="{{ url_for('eliminar_alumno', alumno_id=alumno.id) }}" 
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Está seguro de eliminar este alumno?')">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

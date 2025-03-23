@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Administrar Cursos</h2>
+        </div>
+        <div class="col text-end">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Formulario para agregar curso -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Agregar Nuevo Curso</h5>
+            <form method="POST" class="row g-3">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre del curso" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-plus"></i> Agregar Curso
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de cursos -->
+    <div class="row">
+        {% for curso in cursos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ curso.nombre }}</h5>
+                    <p class="card-text">
+                        <strong>Alumnos:</strong> {{ curso.alumnos|length }}
+                    </p>
+                    <div class="btn-group">
+                        <a href="{{ url_for('administrar_alumnos', curso_id=curso.id) }}" class="btn btn-info">
+                            <i class="fas fa-users"></i> Ver Alumnos
+                        </a>
+                        <a href="{{ url_for('editar_curso', curso_id=curso.id) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{{ url_for('eliminar_curso', curso_id=curso.id) }}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('¿Está seguro de eliminar este curso?')">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

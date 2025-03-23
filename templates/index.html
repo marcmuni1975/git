@@ -1,17 +1,31 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2 class="mb-4">Cursos CEIA</h2>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Sistema de Gestión Escolar</h1>
+    
+    <div class="row mb-4">
+        <div class="col text-end">
+            <a href="{{ url_for('administrar_cursos') }}" class="btn btn-primary">
+                <i class="fas fa-cog"></i> Administrar Cursos
+            </a>
+        </div>
+    </div>
+
     <div class="row">
         {% for curso in cursos %}
-        <div class="col-md-6 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ curso }}</h5>
-                    <p class="card-text">Lista de alumnos y calificaciones</p>
-                    <a href="{{ url_for('ver_curso', curso=curso) }}" class="btn btn-primary">
+                    <h5 class="card-title">{{ curso.nombre }}</h5>
+                    <p class="card-text">
+                        <strong>Alumnos:</strong> {{ curso.alumnos|length }}
+                    </p>
+                    <a href="{{ url_for('administrar_alumnos', curso_id=curso.id) }}" class="btn btn-info">
                         <i class="fas fa-users"></i> Ver Alumnos
+                    </a>
+                    <a href="{{ url_for('exportar_curso_pdf', curso_id=curso.id) }}" class="btn btn-secondary">
+                        <i class="fas fa-file-pdf"></i> Exportar PDF
                     </a>
                 </div>
             </div>
